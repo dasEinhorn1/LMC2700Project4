@@ -7,9 +7,34 @@
       src="https://code.jquery.com/jquery-3.2.1.min.js"
       integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
       crossorigin="anonymous"></script>
-    <script src="https://use.fontawesome.com/687ab5b4bb.js"></script>
-    <script src="js/color-thief.js"></script>
-    <script src="js/paper-full.min.js"></script>
+    <script type="text/javascript" src="https://use.fontawesome.com/687ab5b4bb.js"></script>
+    <script type="text/javascript" src="js/color-thief.js"></script>
+    <script type="text/javascript" src="js/paper-full.min.js"></script>
+    <script type="text/javascript">
+      Array.prototype.pick = function() {
+        return this[Math.floor(Math.random() * this.length)];
+      }
+
+      Math.randRange = function(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        //The maximum is exclusive and the minimum is inclusive
+        return Math.floor(Math.random() * (max - min)) + min;
+      }
+
+      String.prototype.toTitleCase = function () {
+            return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+      };
+
+      function rgbToHex(r, g, b) {
+        return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+      }
+
+      function componentToHex(c) {
+          var hex = c.toString(16);
+          return hex.length == 1 ? "0" + hex : hex;
+      }
+    </script>
     <link href="main.css" rel="stylesheet" type="text/css"/>
   </head>
   <body>
@@ -21,33 +46,56 @@
       </section>
       <nav>
         <!-- Regenerate the page -->
-        <a href="#">Generate</a>
+        <a href="#" onclick="generate()">Generate</a>
         <!-- View the about section -->
-        <a href="#">About</a>
+        <a id="about" href="#">About</a>
       </nav>
     </header>
     <main>
       <section class="art-frame">
-        <canvas id="art" resize></canvas>
-        <span class="details-btn" data-to="aside">
+        <div class="load-wrap">
+          <div class="loading">
+            <h2>Loading</h2>
+            <!--<div class="load-icon">
+              <div>L</div>
+              <div>O</div>
+              <div>A</div>
+              <div>D</div>
+            </span>-->
+          </div>
+        </div>
+        <canvas id="art"></canvas>
+        <span class="details-bar" data-to="aside">
           <i class="fa fa-chevron-down" aria-hidden="true"></i>
         </span>
       </section>
-      <aside class="description">
-        <h3>Art Title</h3>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-          ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur.
-        </p>
+      <aside>
+        <div class="description">
+          <div class="img-wrap">
+            <img id="original" src="" alt="loading..."/>
+          </div>
+          <div class="p-wrap">
+            <h2>Art Title</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+              ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+              aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+              pariatur.
+            </p>
+          </div>
+        </div>
       </aside>
     </main>
   </body>
+  <!--
+    <script type="text/paperscript" src="js/paper-test.js" canvas="art">
+    </script>
+  -->
+  <script type="text/javascript" src="js/modernize.js"></script>
   <script src="js/main.js"></script>
   <script type="text/javascript">
-    getSeedWord(getPhotoFromFlickr);
+    generate();
   </script>
 </html>

@@ -1,24 +1,40 @@
 currentWord = "";
-currentImg = ""
-Array.prototype.pick = function() {
-  return this[Math.floor(Math.random() * this.length)];
+currentImg = "";
+
+var startLoad = function() {
+  $(".load-wrap").css("display", "block");
 }
 
-String.prototype.toTitleCase = function () {
-      return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-};
+var stopLoad = function() {
+  $(".load-wrap").css("display", "none");
+}
 
-$(document).on('picture_updated', function() {
-  $(".description>h3").html(currentWord.toTitleCase());
+$("#about").on("click", function() {
+  $(".details-bar").click();
+})
+
+$(".details-bar").on("click", function() {
+  console.log("adsg");
+  let up = $("aside").outerHeight();
+  console.log(-up);
+  let newM = ($(".art-frame").css("margin-top") == "0px") ? -up+"px" : "0px";
+  console.log(newM);
+  $(".art-frame").css("margin-top", newM);
+})
+
+$(document).on('picture_received', function() {
+  $("aside h2").html(currentWord.toTitleCase());
+  $("#original").attr("src", currentImg);
   console.log(currentImg);
   colorThief = new ColorThief();
   let o = {
     colors: 1
   }
-  colorThief.getPaletteFromUrl(currentImg, function(colorPalette) {
-      for (let rgbVal of colorPalette) {
-      console.log(rgbVal);
-    }
+  colorThief.getPaletteFromUrl(currentImg, function(cPal) {
+    let hexVals = cPal.map(function(rgbVal) {
+      return rgbToHex(rgbVal[0], rgbVal[1], rgbVal[2]);
+    });
+    modernize(hexVals);
   }, {
     colors:4, quality:10
   });
@@ -26,21 +42,32 @@ $(document).on('picture_updated', function() {
 
 var getSeedWord = function(callback=function(){}) {
   minCorpusCount = 100000
-  $.ajax({
-    url: "http://api.wordnik.com/v4/words.json/randomWords?"
-    + "hasDictionaryDef=false&includePartOfSpeech=noun&minCorpusCount="
-    + minCorpusCount + "&maxCorpusCount=-1"
-    + "&minDictionaryCount=1&maxDictionaryCount=-1"
-    + "&minLength=5&maxLength=-1&limit=100&api_key=" + WordnikAPIKey,
-    success: function(data) {
-      nouns = eval(data);
-			var seedWord = nouns.pick().word;
-      currentWord = seedWord;
-      return callback(seedWord);
-    },
-    async: true,
-    dataType:"json"
-  });
+  try {
+    $.ajax({
+      url: "http://api.wordnik.com/v4/words.json/randomWords?"
+      + "hasDictionaryDef=false&includePartOfSpeech=noun&minCorpusCount="
+      + minCorpusCount + "&maxCorpusCount=-1"
+      + "&minDictionaryCount=1&maxDictionaryCount=-1"
+      + "&minLength=5&maxLength=-1&limit=100&api_key=" + WordnikAPIKey,
+      success: function(data) {
+        nouns = eval(data);
+  			var seedWord = nouns.pick().word;
+        currentWord = seedWord;
+        return callback(seedWord);
+      },
+      error : function(err) {
+        console.log("Error pulling from Wordnik");
+        currentWord = "Error";
+        return callback(currentWord);
+      },
+      async: true,
+      dataType:"json"
+    });
+  } catch (e) {
+    console.log("Error pulling from DB");
+    currentWord = "Error";
+    return callback(currentWord);
+  }
 }
 
 var getPhotoFromFlickr = function(seedWord) {
@@ -57,9 +84,14 @@ var getPhotoFromFlickr = function(seedWord) {
       currentImg = "image.php?p="
         + "https://farm" + photo.farm + ".staticflickr.com/"
         + photo.server + "/" + photo.id + "_" + photo.secret + "_d.jpg";
-      $(document).trigger('picture_updated')
+      $(document).trigger('picture_received')
     },
     async: true,
     dataType:"json"
   });
+}
+
+function generate() {
+  startLoad();
+  getSeedWord(getPhotoFromFlickr);
 }

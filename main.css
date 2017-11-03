@@ -36,11 +36,33 @@ section.title h1.emphasize {
   color: #344c4c;
 }
 
+#about a,
+#about a:visited {
+  color: #7FDBFF;
+}
+
 main {
-  /*overflow: hidden;*/
+  overflow: hidden;
+}
+
+#about {
+  padding: 1.5vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  margin-top: calc(-470px - 3vh);
+  transition: margin-top .5s;
+  background: #151e1e;
+  color: #e1eaea;
+}
+
+#about .img-wrap {
+  height: 100%;
 }
 
 section.art-frame {
+  margin-top: 0;
+  transition: margin-top .5s;
   position: relative;
   overflow: hidden;
   height: 100%;
@@ -58,9 +80,14 @@ section.art-frame {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  background: white;
+  padding-left: 16px;
+  padding-right: 16px;
+  border: 20px solid black;
 }
 
-/*.load-icon {
+/*
+.load-icon {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
@@ -71,7 +98,6 @@ section.art-frame {
   border: .5vw solid black;
   box-sizing: border-box;
 }
-
 .load-icon div:first-child {
   background-color: white;
   border-right-width: 0;
@@ -82,7 +108,6 @@ section.art-frame {
   background-color: #ffe04d;
   border-bottom-width: 0;
   animation: c2 5s ease-out 0s infinite;
-
 }
 .load-icon div:nth-child(3) {
   background-color: #ff1a1a;
@@ -93,7 +118,8 @@ section.art-frame {
 .load-icon div:last-child {
   background-color: #1a1aff;
   animation: c4 5s ease-out 0s infinite;
-}*/
+}
+*/
 
 section.art-frame .details-bar {
   position: absolute;
@@ -164,20 +190,37 @@ nav a {
   padding-right: 0px;
   transition: border-right-width .3s ease, border-right-color .3s ease;
 }
-
-nav a:hover {
+nav a span{
+  display: none;
+}
+nav a:hover,
+nav a.active {
   border-right-width: 3px;
   border-right-color: #0a0f0f;
   padding-right: 3px;
 }
-
+nav a.active span {
+  display: inline;
+}
 aside {
   padding: 1.5vw 1.5vw;
+  background: #151e1e;
+  color: #e1eaea;
 }
 
 aside .p-wrap {
   position: relative;
+  padding-left: 1.5vw;
 }
+
+.p-wrap h2 {
+  margin-top: 0;
+  font-size: 3em;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .p-wrap p {
   position: absolute;
   top: 50%;
@@ -189,10 +232,13 @@ aside .p-wrap {
   overflow: hidden;
   height: 50vh;
   width: auto;
+  padding-right: 1.5vw;
 }
 
 .img-wrap img {
   position: absolute;
+  width: auto;
+  height: 100%;
   left: 50%;
   transform: translate(-50%);
 }

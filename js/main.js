@@ -9,21 +9,47 @@ var stopLoad = function() {
   $(".load-wrap").css("display", "none");
 }
 
-$("#about").on("click", function() {
-  $(".details-bar").click();
+var toggleDetails = function() {
+  let up = $("aside").outerHeight();
+  let newM = "0px";
+  if ($(".art-frame").css("margin-top") == "0px") {
+    newM = -up + "px";
+    $("#details").addClass("active");
+  } else {
+    $("#details").removeClass("active");
+  }
+  $(".art-frame").css("margin-top", newM);
+}
+
+var toggleAbout = function() {
+  let up = $("#about").outerHeight();
+  let newM = "0px";
+  if ($("#about").css("margin-top") == "0px") {
+    newM = -up + "px";
+    $("#about-link").removeClass("active");
+  } else {
+    $("#about-link").addClass("active");
+  }
+  $("#about").css("margin-top", newM);
+}
+
+$("#generate").on("click", function() {
+  generate();
 })
 
-$(".details-bar").on("click", function() {
-  console.log("adsg");
-  let up = $("aside").outerHeight();
-  console.log(-up);
-  let newM = ($(".art-frame").css("margin-top") == "0px") ? -up+"px" : "0px";
-  console.log(newM);
-  $(".art-frame").css("margin-top", newM);
+$("#details").on("click", function() {
+  $("a.active").removeClass("active");
+  $("#about").css("margin-top", (-$("#about").outerHeight()) + "px");
+  toggleDetails();
+})
+$("#about-link").on("click", function() {
+  $("a.active").removeClass("active");
+  $(".art-frame").css("margin-top", "0px");
+  toggleAbout();
 })
 
 $(document).on('picture_received', function() {
-  $("aside h2").html(currentWord.toTitleCase());
+  $("#seed-word").html(currentWord.toTitleCase());
   $("#original").attr("src", currentImg);
   console.log(currentImg);
   colorThief = new ColorThief();

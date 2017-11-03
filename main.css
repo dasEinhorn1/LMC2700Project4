@@ -36,10 +36,6 @@ section.title h1.emphasize {
   color: #344c4c;
 }
 
-#about a,
-#about a:visited {
-  color: #7FDBFF;
-}
 
 main {
   overflow: hidden;
@@ -56,8 +52,17 @@ main {
   color: #e1eaea;
 }
 
+#about a,
+#about a:visited {
+  color: #7FDBFF;
+}
+
 #about .img-wrap {
   height: 100%;
+}
+
+#about section {
+  padding-left: 1.5vh
 }
 
 section.art-frame {
@@ -190,6 +195,12 @@ nav a {
   padding-right: 0px;
   transition: border-right-width .3s ease, border-right-color .3s ease;
 }
+
+nav a:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+}
+
 nav a span{
   display: none;
 }
@@ -210,14 +221,18 @@ aside {
 
 aside .p-wrap {
   position: relative;
-  padding-left: 1.5vw;
+  /*max-width: 50%;*/
 }
 
 .p-wrap h2 {
+  padding-left: 1.5vh;
+  padding-right: 1.5vh;
   margin-top: 0;
   font-size: 3em;
   position: absolute;
   top: 50%;
+  overflow-wrap: break-word;
+  hyphens: auto;
   transform: translateY(-50%);
 }
 

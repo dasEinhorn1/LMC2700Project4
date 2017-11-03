@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>Modern Art</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <script type="text/javascript" src="js/keys.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -50,7 +52,7 @@
         <!-- View the about section -->
         <a id="about-link" href="#"><span>Hide </span>About</a>
         <!-- Regenerate the page -->
-        <a id="generate" href="#">Generate</a>
+        <a id="generate" class="active" href="#">Generate</a>
         <!-- View the details section -->
         <a id="details" href="#"><span>Hide </span>Details</a>
       </nav>
@@ -63,20 +65,21 @@
         </div>
         <section>
           <h2>About this site</h2>
-          <p>This site is based on the works of
+          <p>This site is based on the work of
             <a href="https://www.guggenheim.org/artwork/artist/piet-mondrian">
               Piet Mondrian</a>, a modern artist from the early 1900s responsible
-            for works such as "Composition in Red, Blue, and Yellow, 1930." This
+            for works such as "Composition in Red, Blue, and Yellow, 1930."
+            <i>(pictured on left)</i>. This
             project attempts to reimagine Mondrian's work from a computational
             perspective.
           </p>
           <p>
-            Each artwork is generated from a seed word and an associated image. It
-            utilizes the <a href="http://developer.wordnik.com/">Wordnik</a> and
-            <a href="https://www.flickr.com/services/developer">Flickr</a> APIs to
-            get this information. Upon receiving the information, it extracts a
-            small color palette from the image using a slightly modified version
-            of <a href="https://github.com/lokesh/color-thief/">Color Thief</a>.
+            Utilizing the <a href="http://developer.wordnik.com/">Wordnik</a> and
+            <a href="https://www.flickr.com/services/developer">Flickr</a> APIs
+            Each artwork is generated from a seed word and an associated image.
+            Upon receiving the information, a small color palette is extracted
+            from the image using a slightly modified version of
+            <a href="https://github.com/lokesh/color-thief/">Color Thief</a>.
             It also utilizes the
             <a href="https://fonts.google.com/">Google Fonts API</a> to make
             the text you are reading right now look prettier.
@@ -84,9 +87,9 @@
           <p>
             Once the color palette is generated, the site uses
             <a href="http://paperjs.org/">Paper.js</a> to randomly generate and
-            color the rectangles. Visit the project's GitHub
+            color the rectangles. Visit the project's
             <a href="https://github.com/dasEinhorn1/LMC2700Project4">
-              repository</a> for more information, updates, etc.
+              GitHub repository</a> for more information, updates, etc.
           </p>
           <h2>Instructions:</h2>
           <ol>

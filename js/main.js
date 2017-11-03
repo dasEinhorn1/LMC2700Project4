@@ -17,6 +17,7 @@ var toggleDetails = function() {
     $("#details").addClass("active");
   } else {
     $("#details").removeClass("active");
+    $("#generate").addClass("active");
   }
   $(".art-frame").css("margin-top", newM);
 }
@@ -27,6 +28,7 @@ var toggleAbout = function() {
   if ($("#about").css("margin-top") == "0px") {
     newM = -up + "px";
     $("#about-link").removeClass("active");
+    $("#generate").addClass("active");
   } else {
     $("#about-link").addClass("active");
   }
@@ -34,6 +36,11 @@ var toggleAbout = function() {
 }
 
 $("#generate").on("click", function() {
+  $("a.active").removeClass("active");
+  let up = $("#about").outerHeight();
+  $("#about").css("margin-top", -up + "px");
+  $(".art-frame").css("margin-top", "0px");
+  $("#generate").addClass("active");
   generate();
 })
 

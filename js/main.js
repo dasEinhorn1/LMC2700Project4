@@ -55,7 +55,7 @@ $("#about-link").on("click", function() {
   toggleAbout();
 })
 
-$(document).on('picture_received', function() {
+var update = function() {
   $("#seed-word").html(currentWord.toTitleCase());
   $("#original").attr("src", currentImg);
   console.log(currentImg);
@@ -71,7 +71,7 @@ $(document).on('picture_received', function() {
   }, {
     colors:4, quality:10
   });
-});
+}
 
 var getSeedWord = function(callback=function(){}) {
   minCorpusCount = 100000
@@ -117,7 +117,7 @@ var getPhotoFromFlickr = function(seedWord) {
       currentImg = "image.php?p="
         + "https://farm" + photo.farm + ".staticflickr.com/"
         + photo.server + "/" + photo.id + "_" + photo.secret + "_d.jpg";
-      $(document).trigger('picture_received')
+      update();
     },
     async: true,
     dataType:"json"

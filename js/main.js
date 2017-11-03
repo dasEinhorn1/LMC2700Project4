@@ -55,7 +55,7 @@ $("#about-link").on("click", function() {
   toggleAbout();
 })
 
-var update = function() {
+var update = function(currentImg) {
   $("#seed-word").html(currentWord.toTitleCase());
   $("#original").attr("src", currentImg);
   console.log(currentImg);
@@ -117,7 +117,7 @@ var getPhotoFromFlickr = function(seedWord) {
       currentImg = "image.php?p="
         + "https://farm" + photo.farm + ".staticflickr.com/"
         + photo.server + "/" + photo.id + "_" + photo.secret + "_d.jpg";
-      update();
+      update(currentImg);
     },
     async: true,
     dataType:"json"

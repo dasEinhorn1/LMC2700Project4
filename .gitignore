@@ -1,4 +1,6 @@
 /vendor/
 composer.phar
 /example/
+/Hayward_Project_4/
 keys.js
+*.zip
